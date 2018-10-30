@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopFileReader {
 
@@ -37,4 +39,22 @@ public class ShopFileReader {
         return null;
     }
 
+    public List<Integer> readBasket(String basketFileName){
+        List<Integer> basket = new ArrayList<>();
+        String line;
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        File file = new File(classLoader.getResource(basketFileName).getFile());
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+
+            while ((line = bufferedReader.readLine()) != null) {
+                basket.add(Integer.valueOf(line.trim()));
+            }
+
+            return basket;
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
