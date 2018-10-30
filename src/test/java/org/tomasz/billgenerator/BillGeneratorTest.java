@@ -18,8 +18,9 @@ class BillGeneratorTest {
         basket.add(barcodeForBeer);
         BigDecimal expected = BigDecimal.valueOf(1.2);
 
-        BigDecimal result = billGenerator.getPrice(basket);
+        BigDecimal result = billGenerator.getBill(basket);
 
         assertEquals(expected, result);
     }
+
 }
