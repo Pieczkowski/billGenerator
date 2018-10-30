@@ -39,8 +39,17 @@ public class BillGenerator {
         //TODO
     }
 
+    private int findBiggestValidAmount(Item item, int amount){
+        //TODO
+    }
 
     private BigDecimal getPriceOfSingleGroup(Item item, int amount) {
-        //TODO
+        int biggestSmallerAmountInMap = findBiggestValidAmount(item, amount);
+        BigDecimal price = BigDecimal.ZERO;
+        if (amount - biggestSmallerAmountInMap > 0) {
+            price = price.add(getPriceOfSingleGroup(item, amount - biggestSmallerAmountInMap));
+        }
+        price = price.add(item.getPriceForAmount(biggestSmallerAmountInMap));
+        return price;
     }
 }
