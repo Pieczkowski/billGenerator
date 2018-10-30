@@ -40,4 +40,13 @@ class BillGeneratorTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void testBillIs0WhenBasketEmpty(){
+        BillGenerator billGenerator = new BillGenerator();
+        List<Integer> basket = new ArrayList<>();
+        BigDecimal expected = BigDecimal.ZERO;
+
+        assertEquals(expected, billGenerator.getBill(basket));
+    }
+
 }
