@@ -1,5 +1,6 @@
 package org.tomasz.billgenerator;
 
+import org.tomasz.billgenerator.customException.NoItemInProductPricesListException;
 import org.tomasz.billgenerator.customException.NoPriceForSingleItemException;
 import org.tomasz.billgenerator.model.Item;
 import org.tomasz.billgenerator.model.ItemsPriceMap;
@@ -31,6 +32,9 @@ public class BillGenerator {
             Integer itemID = entry.getKey();
             Integer amount = entry.getValue();
             Item item = productPrices.get(itemID);
+            if (item == null){
+                throw new NoItemInProductPricesListException();
+            }
             price = price.add(getPriceOfSingleGroup(item, amount));
         }
         return price;
