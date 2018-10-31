@@ -5,6 +5,7 @@ import org.tomasz.billgenerator.model.Item;
 import org.tomasz.billgenerator.model.ItemsPriceMap;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,12 @@ public class BillGenerator {
 
 
     private Map<Integer, Integer> groupBasketItems(List<Integer> basket) {
-        //TODO
+        Map<Integer, Integer> groupedBasket = new HashMap<>();
+
+        for (int item : basket){
+            groupedBasket.put(item, groupedBasket.getOrDefault(item, 0) + 1);
+        }
+        return groupedBasket;
     }
 
     private int findBiggestValidAmount(Item item, int amount){
