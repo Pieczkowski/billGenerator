@@ -1,6 +1,7 @@
 package org.tomasz.billgenerator;
 
 import org.junit.jupiter.api.Test;
+import org.tomasz.billgenerator.customException.NoPriceForSingleItemException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -47,6 +48,17 @@ class BillGeneratorTest {
         BigDecimal expected = BigDecimal.ZERO;
 
         assertEquals(expected, billGenerator.getBill(basket));
+    }
+
+    @Test
+    void testNoPriceForSingleItemExceptionThrown(){
+        BillGenerator billGenerator = new BillGenerator();
+        List<Integer> basket = new ArrayList<>();
+        int barcodeForBeer = 1001;
+        basket.add(barcodeForBeer);
+        billGenerator.removeItemPrice(barcodeForBeer, 1);
+
+        assertThrows(NoPriceForSingleItemException.class, () -> billGenerator.getBill(basket));
     }
 
 }
