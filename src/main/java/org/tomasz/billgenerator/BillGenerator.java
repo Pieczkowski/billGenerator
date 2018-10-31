@@ -40,7 +40,14 @@ public class BillGenerator {
     }
 
     private int findBiggestValidAmount(Item item, int amount){
-        //TODO
+        int biggestAmount = 0;
+        Map<Integer, BigDecimal> amountAndPrices = item.getAmountAndPrices();
+        for (Integer amountInMap : amountAndPrices.keySet()){
+            if (amountInMap > biggestAmount && amountInMap <= amount){
+                biggestAmount = amountInMap;
+            }
+        }
+        return biggestAmount;
     }
 
     private BigDecimal getPriceOfSingleGroup(Item item, int amount) {
