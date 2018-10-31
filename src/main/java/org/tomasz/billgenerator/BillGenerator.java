@@ -69,4 +69,9 @@ public class BillGenerator {
         price = price.add(item.getPriceForAmount(biggestSmallerAmountInMap));
         return price;
     }
+
+    public void removeItemPrice(int id, int amount){
+        productPrices.get(id).removePrice(amount);
+    }
+
 }
