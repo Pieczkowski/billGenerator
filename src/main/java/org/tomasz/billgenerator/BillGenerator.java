@@ -24,6 +24,11 @@ public class BillGenerator {
         productPrices = shopFileReader.readPrices();
     }
 
+    /**
+     * Produces total value that customer is required to pay for items in his basket
+     * @param basket list of items customer wants to buy
+     * @return total price of given basket
+    */
     public BigDecimal getBill(List<Integer> basket) {
         Map<Integer, Integer> groupedBasket = groupBasketItems(basket);
         BigDecimal price = BigDecimal.ZERO;
@@ -41,6 +46,11 @@ public class BillGenerator {
     }
 
 
+    /**
+     * Groups items with same id
+     * @param basket list of items customer wants to buy
+     * @return grouped items in form of map: barcode - amount
+     */
     private Map<Integer, Integer> groupBasketItems(List<Integer> basket) {
         Map<Integer, Integer> groupedBasket = new HashMap<>();
 
@@ -50,6 +60,17 @@ public class BillGenerator {
         return groupedBasket;
     }
 
+    /**
+     * Finds biggest amount of item that has defined price
+     * <p> Example
+     * <p> Having the following prices for chocolate in the store:
+     * <p> 1 - 3.15
+     * <p> 2 - 6
+     * <p> 4 - 11
+     *
+     * <p> If we have <b>3</b> in the basket we expect the result to be <b>2</b>.
+     * <p> If we add one more beer the result should be <b>4</b>.
+     */
     private int findBiggestValidAmount(Item item, int amount){
         int biggestAmount = 0;
         Map<Integer, BigDecimal> amountAndPrices = item.getAmountAndPrices();
@@ -64,6 +85,11 @@ public class BillGenerator {
         return biggestAmount;
     }
 
+    /**
+     * Calculate price for a single grouped item using the biggest available pricing groups
+     * @param item item to be evaluated
+     * @param amount amount of given item in basket
+     */
     private BigDecimal getPriceOfSingleGroup(Item item, int amount) {
         int biggestSmallerAmountInMap = findBiggestValidAmount(item, amount);
         BigDecimal price = BigDecimal.ZERO;
@@ -74,6 +100,11 @@ public class BillGenerator {
         return price;
     }
 
+    /**
+     * Remove price of a given item for specified amount from the data
+     * @param id product id (barcode)
+     * @param amount of items that will no longer have specified price
+     */
     public void removeItemPrice(int id, int amount){
         productPrices.get(id).removePrice(amount);
     }
