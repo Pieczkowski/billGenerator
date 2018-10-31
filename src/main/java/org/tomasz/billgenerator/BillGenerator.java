@@ -1,5 +1,6 @@
 package org.tomasz.billgenerator;
 
+import org.tomasz.billgenerator.customException.NoPriceForSingleItemException;
 import org.tomasz.billgenerator.model.Item;
 import org.tomasz.billgenerator.model.ItemsPriceMap;
 
@@ -47,6 +48,9 @@ public class BillGenerator {
                 biggestAmount = amountInMap;
             }
         }
+        if (biggestAmount == 0)
+            throw new NoPriceForSingleItemException();
+
         return biggestAmount;
     }
 
