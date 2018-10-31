@@ -78,4 +78,7 @@ public class BillGenerator {
         productPrices.get(id).removePrice(amount);
     }
 
+    public ItemsPriceMap getProductPrices() {
+        return productPrices;
+    }
 }
